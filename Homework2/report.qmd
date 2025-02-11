@@ -6,7 +6,7 @@ toc: true
 date: 02-10-2025
 ---
 
-[View on github](https://github.com/watsonkh/test/)
+[View on github](https://github.com/watsonkh/CMSC608-Homework/tree/main/Homework2)
 
 
 My general approach follows the one taught in class: nouns are entites and verbs are relationships. I expect I will have to refine the database design before finalizing.
