@@ -14,7 +14,7 @@ My general approach follows the one taught in class: nouns are entites and verbs
 # Library Management System
 Picture a library that needs to manage books, members, and loans. Each book has a book ID, title, and author. Members have a member ID, name, and membership date. Loans have a loan ID, loan date, and return date. A member can borrow multiple books, and each book can be borrowed by multiple members over time. Each loan is associated with a single member borrowing a single book.
 
-First I start by picking out the nouns/entities and attributes. I anticipate that a loan will need to reference both a member and a book, so I include a Book ID FK and a Member ID FK in the loan entity.
+First I start by picking out the nouns/entities and attributes. I anticipate that a loan will need to reference both a member and a book, so I include a Book ID FK and a Member ID FK in the loan entity. The Loan entity is used to remove the M:N relation ship between members and books.
 
  - Book(ID, Title, Author)
  - Member(ID, Name, Membership Date)
@@ -77,10 +77,148 @@ graph ER {
 }
 ```
 
-1. 
 
 # Restaurant Reservation System
+Envision a restaurant that wants to manage reservations, customers, and tables. Each reservation has a reservation ID, date, and time. Customers have a customer ID, name, and contact number. Tables have a table number, seating capacity, and location. A customer can make multiple reservations, and each reservation is for a single table. Each table can have multiple reservations over time, but each reservation is associated with only one customer.
+
+This seems very similar to the Library Management System. Two entites have a M:N relationship and is handled by an associative entity.
+
+ - Table(Table Number, Seating Capacity, Location)
+ - Customer(ID, Name, Contact Number)
+ - Reservation(ID, Reservation Date, Reservation Time, Table Number, Customer ID)
+
+```{mermaid}
+erDiagram
+    Customer ||--o{ Reservation : "Makes"
+    Customer {
+        int ID
+        String name
+        String contact_number
+    }
+     Table  ||--o{ Reservation: "Reserved"
+    Reservation {
+        int ID
+        Date reservation_date
+        Time reservation_time
+        int table_number
+        int customer_id
+    }
+    Table {
+        int table_number
+        int seating_capacity
+        String location
+    }
+```
+
+```{dot}
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Table; Customer; Reservation;
+	node [shape=ellipse]; {node [label="ID"] customer_id; reservation_id;}
+		name; seating_capacity; location; reservation_date; reservation_time; contact_number; table_number;
+	node [shape=diamond,style=filled,color=lightgrey]; "Reserved"; "Makes";
+
+    table_number -- Table;
+    seating_capacity -- Table;
+    location -- Table;
+
+    customer_id -- Customer;
+    contact_number -- Customer;
+    name -- Customer;
+
+    reservation_id -- Reservation;
+    reservation_time -- Reservation;
+    reservation_date -- Reservation;
+
+    "Reserved" -- Reservation [label="n",color="black:white:black"];
+    "Reserved" -- Table [label="1"];
+    "Makes" -- Reservation [label="n",color="black:white:black"];
+    "Makes" -- Customer [label="1"];
+
+	label = "\n\nRestaurant Reservation System";
+	fontsize=20;
+}
+```
+
 
 # Real Estate Listing System
+Imagine a real estate agency that wants to track properties, agents, and clients. Each property has a property ID, address, and listing price. Agents have an agent ID, name, and contact information. Clients have a client ID, name, and budget. An agent can handle multiple properties, but each property is listed by a single agent. Clients can be interested in multiple properties, and each property can have multiple interested clients.
+
+ - Property(ID, address, listing_price, managed_by)
+ - Agent(ID, name, contact information)
+ - Client(ID, name, budget)
+ - ClientInterest(client_id, property_id)
+
+```{mermaid}
+erDiagram
+    Agent ||--o{ Property : "Handles"
+    Client ||--o{ ClientInterest: "Interested in"
+    Property ||--o{ ClientInterest: "Interested by"
+    Agent {
+        int ID
+        String name
+        String contact_information
+    }
+
+    Property {
+        int ID
+        Address address
+        int listing_price_cents
+        int managed_by
+    }
+
+    Client {
+        int ID
+        String name
+        int budget_cents
+    }
+
+    ClientInterest{
+        int client_id
+        int property_id
+    }
+
+```
+
+```{dot}
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; Property; Agent; Client; ClientInterest;
+	node [shape=ellipse]; {node [label="ID"] property_id; pk_client_id; pk_agent_id;}
+		agent_name; client_name; contact_info; listing_price; address; budget; agent_id; client_id; managed_by;
+	node [shape=diamond,style=filled,color=lightgrey]; "Manages"; "Interested In"; "Interested By";
+
+    Agent -- pk_agent_id;
+    Agent -- name;
+    Agent -- contact_info;
+    Agent -- agent_name;
+
+    Client -- pk_client_id;
+    Client -- client_name;
+    Client -- budget;
+
+    ClientInterest -- client_id;
+    ClientInterest -- agent_id;
+
+    Property -- property_id;
+    Property -- address;
+    Property -- listing_price;
+    Property -- managed_by;
 
 
+    Agent -- "Manages";
+    "Manages" -- Property;
+    
+    Property -- "Interested By";
+    "Interested By" -- ClientInterest;
+
+    Client -- "Interested In";
+    "Interested In" -- ClientInterest;
+}
+```
