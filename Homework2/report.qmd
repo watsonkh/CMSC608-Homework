@@ -152,6 +152,8 @@ Imagine a real estate agency that wants to track properties, agents, and clients
  - Client(ID, name, budget)
  - ClientInterest(client_id, property_id)
 
+This last scenario is similar to the previous two except there is an additional entity that is associated with one of the two in a M:N relationship. This additional entity has a 1:M relationship, so it does not need modification. The Client Interest entity was created to resolve the M:N relationship into two 1:M relationships. Now every relationship in this ER diagram is 1:M. 
+
 ```{mermaid}
 erDiagram
     Agent ||--o{ Property : "Handles"
@@ -220,5 +222,12 @@ graph ER {
 
     Client -- "Interested In";
     "Interested In" -- ClientInterest;
+
+    label = "\n\nReal Estate Listing System";
+	fontsize=20;
 }
 ```
+
+# Conclusion
+
+The biggest hurdle was resolving M:N relationships with an associative entity.
