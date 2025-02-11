@@ -1,0 +1,86 @@
+---
+title: "Homework 2: Entity Relation Diagrams"
+author: "Kyle Watson"
+format: html
+toc: true
+date: 02-10-2025
+---
+
+[View on github](https://github.com/watsonkh/test/)
+
+
+My general approach follows the one taught in class: nouns are entites and verbs are relationships. I expect I will have to refine the database design before finalizing.
+
+# Library Management System
+Picture a library that needs to manage books, members, and loans. Each book has a book ID, title, and author. Members have a member ID, name, and membership date. Loans have a loan ID, loan date, and return date. A member can borrow multiple books, and each book can be borrowed by multiple members over time. Each loan is associated with a single member borrowing a single book.
+
+First I start by picking out the nouns/entities and attributes. I anticipate that a loan will need to reference both a member and a book, so I include a Book ID FK and a Member ID FK in the loan entity.
+
+ - Book(ID, Title, Author)
+ - Member(ID, Name, Membership Date)
+ - Loan(ID, Loan Date, Return Date, Book ID, Member ID)
+
+
+```{mermaid}
+erDiagram
+    MEMBER ||--o{ LOAN : "loans to"
+    MEMBER {
+        int ID
+        String name
+        Date membership_date
+    }
+     BOOK  ||--o{ LOAN: "loans a"
+    LOAN {
+        int ID
+        Date loan_date
+        Date return_date
+        int book_id
+        int member_id
+    }
+    BOOK {
+        int ID
+        String title
+        String author
+    }
+```
+
+```{dot}
+graph ER {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	layout=neato
+	node [shape=box]; BOOK; MEMBER; LOAN;
+	node [shape=ellipse]; {node [label="ID"] book_id; member_id; loan_id;}
+		name; membership_date; title; author; loan_date; return_date; book_id; member_id;
+	node [shape=diamond,style=filled,color=lightgrey]; "Lends a"; "Lends to";
+
+    book_id -- BOOK;
+    title -- BOOK;
+    author -- BOOK;
+
+    member_id -- MEMBER;
+    name -- MEMBER;
+    membership_date -- MEMBER;
+
+    loan_id -- LOAN;
+    return_date -- LOAN;
+    loan_date -- LOAN;
+
+    "Lends a" -- LOAN [label="n",color="black:white:black"];
+    "Lends a" -- BOOK [label="1"];
+    "Lends to" -- LOAN [label="n",color="black:white:black"];
+    "Lends to" -- MEMBER [label="1"];
+
+	label = "\n\nLibrary Management System";
+	fontsize=20;
+}
+```
+
+1. 
+
+# Restaurant Reservation System
+
+# Real Estate Listing System
+
+

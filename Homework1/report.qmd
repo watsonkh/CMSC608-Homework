@@ -1,0 +1,74 @@
+---
+title: "Review of Open Source Data Engineering Landscape Diagam"
+author: "Kyle Watson"
+format:
+  html:
+    toc: true
+date: 02-02-2025
+---
+<!-- # 1. Open Source Data Engineering Landscape Diagram -->
+# The Diagram
+
+![](report_files/images/diagram.png)
+
+# Category Breakdown
+
+This chart shows open source tools that are grouped into 9 main categories with several subcategories each:
+
+### Storage Systems
+Storage systems has tools, like databases, that are used to store data.  Some subcactagories of storage systems include Rekatuibak OLTP DBMS's like PostgreSQL and SQLite, Document Stores like mongoDB and Couchbase, and Streaming Databases like RisingWave and KsqlDB.
+
+### Data Lake Platforms
+Data lakes are similar to databases, except they are designed to store data that may not be as structured as a database. These can be used for future analysis. Some subcategories of Data Lake Platforms include Distributed File Systems like lustre and HadoopHDFS, Serialization frameworks like Parquet and AVRO, and Open Table Formats like Iceberg and Delta Lake.
+
+### Data Integration
+The Data Integration category involves tools that are useful in moving data. Some subcategories of Data Integration are Log and Event Collection. These tools monitor the transfer of data. This includes Cloud Query, Steampipe, and Event Mesh among others. Event Hubs are also a subcategory fo Data Integration tools that enable the streaming of real-time data into storage systems. Some tools that do this are Apache Kafka, Pulsar, and Redpanda.
+
+### Data Processing & Computation
+Data Processing and Computation includes tools that process data. There are batch processing tools like, Hadoop MapReduce and TEZ. Some allow parallel execution of python, like Dask and PySpark while others are focust on stream processing, like Benthos, Akka, and Bytewax.
+
+### Workflow and Dataops
+The Workflow and Dataops is a broad category that encompasses workflow orchestration, data quality, data versioning, and data modeling. Workflow orchestration tools are used by businesses to enforce workflow procedures and allows users to monitor. Data quality tools let you check the quality of your data. Datafold Data-diff is a tool that will let you check the differences in data sets. Data versioning are tools that allow tracking of changes to data similar to git, two open source packages that enable this are lakeFS and Project Nessie. Finally, data modeling allow the maniupulation of big data.
+
+### Data Infrastructure & Monitoring
+Data Infrastructure and Monitoring allows organizations to manage and monitor their data infrastructure effectively. This category includes tools for resource scheduling, logging, and montoring dashboards. Kubernetes, Docker, and Grafan seem like they could be useful in the future.
+
+### ML/AL Platforms
+These platforms are designed to work well with machine learning. MLOps focus on maintaining robust cloud infrastructure to run AI models. While vector storage tools are better suited for storing training data.
+
+### Metadata Management
+These tools gather, store, and organize metadata. Some examples include Amundsen and Apache Atlas. Amundsen is a data discovery and metadata engine that helps users find and understand data. Apache Atlas provides open metadata management and governance capabilities for organizations to build a catalog of their data assets.
+
+### Analytics & Visualization
+These tools allow the visualization of big data, conversion to business terminology with semantic layers, collaboration, and some dashboards.
+
+
+# Interesting Subcategories
+### Parallel Python Execution
+Parallel Python Execution referes to the category of programs that extend Python's capabilities by allowing it to run multiple threads. Some of these programs are Dask, PySpark, Vaex, and Polars. I've used Dask in an application that requires only loading parts of datasets as we needed them witout loading the whole thing into memory. It is commonly used with big data that is unfeasable to load into memory in its entirety.
+
+### Resource Scheduling
+Resource schedulers manage computing resources for users and programs. Hadoop YARN is one such scheduler that schedules tasks across compute nodes. The "YARN" in Hadoop YARN stands for Yet Another Resource Negotiator. Kubernetes is another popular resource scheduler that automates the deployment, scaling, and management of containerized applications. It ensures that the application runs smoothly by managing the resources efficiently. It keeps live services running while pushing out updates and even if nodes fail.
+
+### In-Memory SQL Database
+In-Memory databases store data in a computer's RAM to allow very quick storage and retrevial times. This is great for realtime processing however RAM is usually more limited than storage on a computer. The three open source databases in this category are Apache Ignite, ReadySet, and VoltDB. Apache Ignite is a distributed database that uses RAM instead of disk or SSD. VoltDB adheres to ACID principles and supports SQL and java. ReadySet is designed to work with existing databases by cacheing common queries for quicker access.
+
+### Serialization Frameworks
+An honorable mention, serialization frameworks convert data into a format that can be easily stored and transmitted. Examples include Parquet, Apache Avro, and Apache ORC.
+
+# Reflection
+
+### What I liked
+- I like using markdown and learning about some open source tools.
+
+### What was difficult
+- The instructions are spread across two canvas assignments and a canvas anouncement.
+
+- It appears there are 3 places to submit this assignment. Two places on canvas and a link gradescope. Each place has different instructions on where to submit. There are also multiple due-dates, so I am not sure which one to complete.
+
+- Starting off with no examples or in-class demonstration meant we had to learn everything ourselves with no resources provided to us on where to learn.
+
+### What should be done differently
+- Having a single place for all instructions as well as having a single clear place to submit the work would be nice.
+
+- This assignment only uses markdown and does not show what is different about Quarto or why we need to use Quarto, so introducing a section that makes us write or run code could be useful. There is a tutorial on Quarto's website that does this.
